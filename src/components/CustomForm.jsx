@@ -1,19 +1,29 @@
 import React from "react";
-import { BeakerIcon } from "@heroicons/react/24/solid";
+import { PlusIcon } from "@heroicons/react/24/solid";
+import { useState } from "react";
 
-const handleFormSubmit = (e) => {
-  e.preventDefault();
-  confirm.log(e);
-};
+const CustomForm = ({addTask}) => {
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    addTask({
+        name: task,
+        checked: false,
+        id: Date.now()
+    })
+    setTask("");
+  };
+  const [task, setTask] = useState("");
 
-const CustomForm = () => {
   return (
     <form className="todo" onSubmit={handleFormSubmit}>
+      <p>{task}</p>
       <div className="wrapper">
         <input
           type="text"
           id="task"
-          className="input" /*value={task} onInput={(e) => setTask(e.target.value)}*/
+          className="input"
+          value={task}
+          onInput={(e) => setTask(e.target.value)}
           required
           autoFocus
           maxLength={60}
@@ -24,7 +34,7 @@ const CustomForm = () => {
         </label>
       </div>
       <button className="btn" aria-label="Add Task" type="submit">
-        <BeakerIcon className="h-6 w-6 text-blue-600" />
+        <PlusIcon className="h-6 w-6 text-blue-600" />
       </button>
     </form>
   );
